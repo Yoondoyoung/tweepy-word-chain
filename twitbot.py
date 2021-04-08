@@ -1,9 +1,10 @@
 import tweepy
+import key
 
-consumer_key = '9ud2EhpmOBMsxGucEJLXk28qU'
-consumer_secret = 'mS4jGUEjHNMVTNc8gJlmNs1XXlBHrYazqQnl0Gcmg1qV4NOSi6'
-access_token = '1377815830109380609-b8zknQfzDx7iMU1zfhALd2T7FSE2r9'
-access_token_secret = '3e56s9rFvinIK9LRXClK2VBjOIP9h9VqmktWx9SvolByS'
+consumer_key = key.consumer_key
+consumer_secret = key.consumer_secret
+access_token = key.access_token
+access_token_secret = key.access_token_secret
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -14,21 +15,21 @@ item = api.get_user('lhUsiWrfIhaP8yR')
 
 # twitting
 
-# api.update_status('test')
+api.update_status('nothing')
 
 
 # checking my tweet
 
-# tweets = api.user_timeline(
-# 	screen_name=item.screen_name,
-# 	count=200,
-# 	include_rts = False,
-# 	tweet_mode = 'extended'
-# 	)
+tweets = api.user_timeline(
+	screen_name=item.screen_name,
+	count=200,
+	include_rts = False,
+	tweet_mode = 'extended'
+	)
 
-# for info in tweets[:3]:
-# 	print('ID : {}'.format(info.id))
-# 	print(info.created_at)
-# 	print(info.full_text)
-# 	print("\n")
+for info in tweets[:3]:
+	print('ID : {}'.format(info.id))
+	print(info.created_at)
+	print(info.full_text)
+	print("\n")
 

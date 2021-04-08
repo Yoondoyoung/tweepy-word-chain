@@ -1,11 +1,11 @@
 import requests
 import xmltodict
 import json
-
+import key
 
 url = 'https://stdict.korean.go.kr/api/search.do'
 
-key = '9A1CE740589D535479C7E43C868F53BA'
+key = key.api_key
 keyword = '면'
 
 params = {
@@ -24,8 +24,11 @@ res = requests.get(url,params=params)
 cc = xmltodict.parse(res.text)
 dd = json.loads(json.dumps(cc))
 
-print(dd.get('channel').get('item')[1].get('word'))
-print(dd.get('channel').get('item')[1].get('sense').get('definition'))
+word = dd.get('channel').get('item')[1].get('word')
+definition = dd.get('channel').get('item')[1].get('sense').get('definition')
+
+print(word)
+print(definition)
 
 def wordReturn(val,s,e):
 	if s in val:
