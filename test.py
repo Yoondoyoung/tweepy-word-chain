@@ -2,47 +2,35 @@ import requests
 import xmltodict
 import json
 import key
-
-url = 'https://stdict.korean.go.kr/api/search.do'
+import random
 
 key = key.api_key
-keyword = '면'
+def wordFinding(kword):
+	result = []
+	keyword = kword
 
-params = {
-	'key' : key,
-	'q' : keyword,
-	'advanced' : 'y',
-	'target' : 1,
-	'pos' : 1,
-	'type1' : 'word',
-	'method' : 'start',
-	'letter_s' : 2
-}
-
-res = requests.get(url,params=params)
-
-cc = xmltodict.parse(res.text)
-dd = json.loads(json.dumps(cc))
-
-word = dd.get('channel').get('item')[1].get('word')
-definition = dd.get('channel').get('item')[1].get('sense').get('definition')
-
-print(word)
-print(definition)
-
-def wordReturn(val,s,e):
-	if s in val:
-		tmp = val.split(s)
-		val = []
-		for i in range(0,len(tmp)):
-			if e in tmp[i]:
-				val.append(tmp[i][:tmp[i].find(e)])
-	else:
-		val = []
-	return val
-
-words = wordReturn(res.text,'<word>','</word>')
-definitions = wordReturn(res.text,'<definition>','</definition>')
-
-print(words)
-print(definitions)
+	wordlen = random.randrange(2,4)
+	url = 'https://stdict.korean.go.kr/api/search.do'
+	
+	params = {
+		'key' : key,
+		'q' : keyword,
+		'advanced' : 'y',
+		'target' : 1,
+		'pos' : 1,
+		'type1' : 'word',
+		'method' : 'start',
+		'letter_s' : wordlen
+	}
+	
+	res = requests.get(url,params=params)
+	
+	cc = xmltodict.parse(res.text)
+	informations = json.loads(json.dumps(cc))
+	randomNumber = random.randrange(1,len(informations.get('channel').get('item')))
+	word = informations.get('channel').get('item')[randomNumber].get('word')
+	definition = informations.get('channel').get('item')[randomNumber].get('sense').get('definition')
+	
+	result.append(word.replace("-",""))
+	result.append(definition)
+	return result

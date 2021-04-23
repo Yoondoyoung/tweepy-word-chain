@@ -1,6 +1,6 @@
 import tweepy
 import key
-
+import test
 consumer_key = key.consumer_key
 consumer_secret = key.consumer_secret
 access_token = key.access_token
@@ -12,12 +12,6 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 item = api.get_user('lhUsiWrfIhaP8yR')
 
-
-# twitting
-
-api.update_status('nothing')
-
-
 # checking my tweet
 
 tweets = api.user_timeline(
@@ -27,9 +21,12 @@ tweets = api.user_timeline(
 	tweet_mode = 'extended'
 	)
 
-for info in tweets[:3]:
-	print('ID : {}'.format(info.id))
-	print(info.created_at)
-	print(info.full_text)
-	print("\n")
+for info in tweets[:1]:
+	# print('ID : {}'.format(info.id))
+	# print(info.created_at)
+	# print(info.full_text)
+	api.update_status(
+		test.wordFinding((info.full_text[len(info.full_text)-1]))[0] 
+		)
+
 
