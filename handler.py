@@ -1,9 +1,14 @@
 import json
+import twitbot
+import wordtest
 
 
 def wordchain(event, context):
+    wordtest.wordFinding('가')
+    twitbot.tweet_upload()
+
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
+        "message": "tweepy test success!",
         "input": event
     }
 
